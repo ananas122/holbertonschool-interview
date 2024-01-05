@@ -3,39 +3,28 @@
 Write a method that determines if all the boxes can be opened.
 """
 
-
 def canUnlockAll(boxes):
-    """
-    Détermine si toutes les boîtes peuvent être déverrouillées en utilisant
-    les clés fournies.
+ """
+    Determines if all the boxes can be unlocked using the provided keys.
 
-    Args :
-    - boxes : Une liste de listes. Chaque sous-liste représente une boîte
-     elle contient les clés
-    pour ouvrir d'autres boîtes.
+    Args:
+    - boxes: A list of lists. Each sublist represents a box containing keys
+     to open other boxes.
 
-    Returns :
-    - True si toutes les boîtes peuvent être déverrouillées, sinon False.
+    Returns:
+    - True if all boxes can be unlocked, else False.
     """
 
-    '''Vérifie si la liste est vide ou nulle (aucune boîte à ouvrir)'''
-    if not boxes or len(boxes) == 0:
-        return False
+ '''Check if the list is empty or null (no boxes to open)'''
 
-    '''Initialise une liste des boîtes déjà déverrouillées,
-    en commençant par la première boîte (indice 0)'''
-    unlocked_boxes = [0]
+    boxopen = {0}  # Commence avec la boîte 0 ouverte
+    clés = boxes[0]  # Prend les clés de la première boîte
 
-    '''Itère à travers chaque boîte déverrouillée '''
-    '''pour trouver et utiliser les clés'''
-    for box in unlocked_boxes:
-        '''Itère à travers chaque clé dans la boîte actuellement ouverte'''
-        for key in boxes[box]:
-            ''' Ajoute la clé à la liste si elle ouvre une nouvelle boîte'''
-            ''' et si la clé n'est pas hors de la portée (indice valide)'''
-            if key not in unlocked_boxes and key < len(boxes):
-                unlocked_boxes.append(key)
+    while clés:
+        new_clé = clés.pop()  # Prend une clé
+        if new_clé not in boxopen and new_clé < len(boxes):
+            # Ajoute la boîte à la liste des ouvertes
+            boxopen.add(new_clé)
+            clés.extend(boxes[new_clé])  # Ajoute les nouvelles clés
 
-    '''Compare le nombre de boîtes déver au nombre total de boîtes'''
-    '''verifie si toutes les boîtes ont été ouvertes'''
-    return len(unlocked_boxes) == len(boxes)
+    return len(boxopen) == len(boxes)
