@@ -10,7 +10,7 @@ def minOperations(n):
     copied_length = 0    # Longueur du texte qui a été copié
 
     while current_length < n:
-        if n % current_length == 0:  # Copier quand current_length est un diviseur de n
+        if n % current_length == 0:  # Copier quand var est un / de n
             copied_length = current_length
             current_length *= 2  # Coller après copie (double la longueur)
             operation_count += 1  # Opération de copie
@@ -20,5 +20,3 @@ def minOperations(n):
         operation_count += 1
 
     return operation_count
-
-
