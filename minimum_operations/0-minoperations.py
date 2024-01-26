@@ -1,29 +1,24 @@
 #!/usr/bin/python3
 """
- write a method that calculates the fewest number of operations needed to result in exactly n H characters in the file!
-returns an integer
-If n is impossible to achieve, return 0
-n = 9
-H => Copy All => Paste => HH => Paste =>HHH => Copy All => Paste => HHHHHH => Paste => HHHHHHHHH
-Number of operations: 6
+Module which contains minoperations function
 """
 
 
 def minOperations(n):
-    if n < 2:
-        return 0
+    operation_count = 0  # Nombre total d'opérations effectuées
+    current_length = 1   # Longueur actuelle du texte dans le fichier
+    copied_length = 0    # Longueur du texte qui a été copié
 
-    count = 0
-    current_length = 1
+    while current_length < n:
+        if n % current_length == 0:  # Copier quand current_length est un diviseur de n
+            copied_length = current_length
+            current_length *= 2  # Coller après copie (double la longueur)
+            operation_count += 1  # Opération de copie
+        else:
+            current_length += copied_length  # Coller le contenu copié
+        # Opération de collage (toujours effectuée après copie ou directement)
+        operation_count += 1
 
-    for i in range(2, n + 1):
-        while n % i == 0:
-            count += i
-            n = n // i
+    return operation_count
 
-    return count
-
-
-    
-    
 
