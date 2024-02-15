@@ -5,31 +5,21 @@ import sys
 
 codes = {}
 size = 0
-count = 0  # Initialisation de la variable count
 
 try:
     for ln in sys.stdin:
         parts = ln.split()
-        if len(parts) > 2 and parts[-2].isdigit():
+        # Validation de la ligne pour s'assurer qu'elle correspond au format attendu
+        if len(parts) > 6 and parts[2] == '-' and 'GET' in parts[3] and parts[4].startswith('/projects/260') and parts[5].startswith('HTTP/1.1') and parts[6].isdigit() and parts[-1].isdigit():
             size += int(parts[-1])
-            code = parts[-2]
+            code = parts[6]
             if code in ['200', '301', '400', '401', '403', '404', '405', '500']:
                 codes[code] = codes.get(code, 0) + 1
 
-        count += 1
-        if count % 10 == 0:  # Après chaque 10 lignes, imprimez les statistiques
-            print("File size: {}".format(size))
-            for key in sorted(codes.keys()):
-                print("{}: {}".format(key, codes[key]))
-
 except KeyboardInterrupt:
-    # Imprimez les statistiques en cas d'interruption
-    print("File size: {}".format(size))
-    for key in sorted(codes.keys()):
-        print("{}: {}".format(key, codes[key]))
-    raise
+    pass
 
-# Imprimez les statistiques après avoir lu toutes les lignes
+# Imprimez les statistiques finales
 print("File size: {}".format(size))
 for key in sorted(codes.keys()):
     print("{}: {}".format(key, codes[key]))
