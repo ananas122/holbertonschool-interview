@@ -44,7 +44,6 @@ try:
             # Skip the line if it is not in the expected format
             pass
 
-      
         if count_line % 10 == 0:
             printStats()
         count_line += 1
