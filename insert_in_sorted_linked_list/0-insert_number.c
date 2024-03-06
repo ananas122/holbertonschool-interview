@@ -18,7 +18,6 @@ listint_t *insert_node(listint_t **head, int number)
 
     new_node->n = number;
 
-    // Insertion en tête de liste ou dans une liste vide
     if (*head == NULL || (*head)->n >= number)
     {
         new_node->next = *head;
@@ -27,7 +26,7 @@ listint_t *insert_node(listint_t **head, int number)
     else
     {
         current = *head;
-        // Parcours jusqu'à la position d'insertion
+        
         while (current->next != NULL && current->next->n < number)
         {
             current = current->next;
